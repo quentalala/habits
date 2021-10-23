@@ -1,0 +1,16 @@
+What you did 
+- form to submit habits
+- very general, but accepts habit name and description
+- no limitations in place, whatever is in the input gets added 
+  to the habits
+- useState for the list of habits, keeping track of new habit and desc
+- input is controlled, source of truth is now the state 
+
+To Do:
+- definitely add limitations on the habit
+- don't allow habits with the same name
+- guess we can do the styling at the end
+- we'll focus more on the functionality of the project
+- still make that tierlist to familiarize yourself with beautiful DnD
+- this will allow for drag and drop 
+- once the habit is made, you should be able to edit the habit 
