@@ -14,6 +14,26 @@
       "name": "Avoid browsing on phone",
       "description": "After you close the morning alarm, or when being productive",
       "id": 3
+    },
+    {
+      "name": "test1",
+      "description": "just a test",
+      "id": 4
+    },
+    {
+      "name": "test2",
+      "description": "another test",
+      "id": 5
+    },
+    {
+      "name": "test3",
+      "description": "another one",
+      "id": 6
+    },
+    {
+      "name": "test4",
+      "description": "hmmmm",
+      "id": 7
     }
   ]
 }
