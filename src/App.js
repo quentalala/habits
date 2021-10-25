@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+import accessHabits from "./services/toBackend";
 
 function App() {
   const [habits, setHabits] = useState([
@@ -24,13 +25,27 @@ function App() {
   const [newHabit, setNewHabit] = useState("");
   const [newDescription, setNewDescription] = useState("");
 
+  useEffect(() => {
+    console.log("effect");
+    accessHabits.getAll().then((initialHabits) => {
+      console.log("promise fulfilled");
+      setHabits(initialHabits);
+    });
+  }, []);
+
   const addHabit = (e) => {
     e.preventDefault();
     const habitObject = {
       name: newHabit,
       description: newDescription,
-      id: habits.length + 1,
+      // id: habits.length + 1,
     };
+
+    accessHabits.create(habitObject).then((returnedHabit) => {
+      setHabits(habits.concat(returnedHabit));
+      setNewHabit("");
+      setNewDescription("");
+    });
 
     setHabits(habits.concat(habitObject));
     setNewHabit("");
@@ -38,12 +53,10 @@ function App() {
   };
 
   const handleHabitChange = (e) => {
-    // console.log(e.target.value);
     setNewHabit(e.target.value);
   };
 
   const handleDescriptionChange = (e) => {
-    // console.log(e.target.value);
     setNewDescription(e.target.value);
   };
 
@@ -74,12 +87,12 @@ function App() {
         <input
           value={newHabit}
           onChange={handleHabitChange}
-          placeholder="Input Habit"
+          placeholder="Add Habit"
         />
         <input
           value={newDescription}
           onChange={handleDescriptionChange}
-          placeholder="Please Describe"
+          placeholder="Please Elaborate"
         />
         <button onClick={addHabit}>Expose Habit</button>
       </form>
@@ -106,3 +119,6 @@ export default App;
 
 // As of now, the new 'habits' that you add from the input don't save to the
 // local storage
+
+// run JSON server with the command below
+// npx json-server --watch db.json --port 3001
