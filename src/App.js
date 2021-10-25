@@ -103,3 +103,6 @@ function App() {
 }
 
 export default App;
+
+// As of now, the new 'habits' that you add from the input don't save to the
+// local storage
