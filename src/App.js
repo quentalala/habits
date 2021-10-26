@@ -8,9 +8,9 @@ function App() {
   const [newDescription, setNewDescription] = useState("");
 
   useEffect(() => {
-    console.log("effect");
+    // console.log("effect");
     accessHabits.getAll().then((initialHabits) => {
-      console.log("promise fulfilled");
+      // console.log("promise fulfilled");
       setHabits(initialHabits);
     });
   }, []);
@@ -20,7 +20,6 @@ function App() {
     const habitObject = {
       name: newHabit,
       description: newDescription,
-      // id: habits.length + 1,
     };
 
     accessHabits.create(habitObject).then((returnedHabit) => {
@@ -28,10 +27,7 @@ function App() {
       setNewHabit("");
       setNewDescription("");
     });
-
-    setHabits(habits.concat(habitObject));
-    setNewHabit("");
-    setNewDescription("");
+    console.log(habits);
   };
 
   const handleHabitChange = (e) => {
@@ -56,7 +52,7 @@ function App() {
   const displayHabits = habits.map((habit) => {
     return (
       <li key={habit.id}>
-        {habit.name} - {habit.description}{" "}
+        {habit.name} - {habit.description}
         <button onClick={() => handleDeleteHabit(habit.id)}>Delete</button>
       </li>
     );
@@ -64,10 +60,10 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Handsome Habits</h1>
+      <h1 className="title">Handsome Habits</h1>
 
-      <div>
-        <h2>4 Laws from Atomic Habits (by James Clear)</h2>
+      <div className="habit-laws">
+        <h2>4 Laws from Atomic Habits - James Clear</h2>
         <ol>
           <li>Make it Obvious</li>
           <li>Make it Attractive</li>
@@ -94,7 +90,7 @@ function App() {
       <h2>Habits</h2>
       <ul>{displayHabits}</ul>
 
-      {/* <div>
+      <div>
         <h2>Inspiring Quotes</h2>
         <p>
           "The way you live your days is the way you live your life" - Annie
@@ -104,15 +100,12 @@ function App() {
           "We have two lives, and the second one begins when we realize we only
           have one" - Confucius
         </p>
-      </div> */}
+      </div>
     </div>
   );
 }
 
 export default App;
-
-// As of now, the new 'habits' that you add from the input don't save to the
-// local storage
 
 // run JSON server with the command below
 // npx json-server --watch db.json --port 3001
