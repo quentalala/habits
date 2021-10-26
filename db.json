@@ -16,24 +16,9 @@
       "id": 3
     },
     {
-      "name": "test1",
-      "description": "just a test",
+      "name": "Warm up!",
+      "description": "Before exercising, do some cardio and some dynamic stretching!",
       "id": 4
-    },
-    {
-      "name": "test2",
-      "description": "another test",
-      "id": 5
-    },
-    {
-      "name": "test3",
-      "description": "another one",
-      "id": 6
-    },
-    {
-      "name": "test4",
-      "description": "hmmmm",
-      "id": 7
     }
   ]
 }
