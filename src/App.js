@@ -3,25 +3,7 @@ import "./App.css";
 import accessHabits from "./services/toBackend";
 
 function App() {
-  const [habits, setHabits] = useState([
-    {
-      name: "Washing Dishes",
-      description: "Right after you're done eating",
-      id: 1,
-    },
-    {
-      name: "Morning Stretch",
-      description: "When you wake up",
-      id: 2,
-    },
-    {
-      name: "Avoid browsing on phone",
-      description:
-        "After you close the morning alarm, or when being productive",
-      id: 3,
-    },
-  ]);
-
+  const [habits, setHabits] = useState([]);
   const [newHabit, setNewHabit] = useState("");
   const [newDescription, setNewDescription] = useState("");
 
@@ -60,10 +42,22 @@ function App() {
     setNewDescription(e.target.value);
   };
 
+  const handleDeleteHabit = (id) => {
+    if (
+      window.confirm(
+        `Delete ${habits.filter((habit) => habit.id === id)[0].name}?`
+      )
+    ) {
+      accessHabits.deleteEntry(id);
+      setHabits(habits.filter((habit) => habit.id !== id));
+    }
+  };
+
   const displayHabits = habits.map((habit) => {
     return (
       <li key={habit.id}>
-        {habit.name} - {habit.description}
+        {habit.name} - {habit.description}{" "}
+        <button onClick={() => handleDeleteHabit(habit.id)}>Delete</button>
       </li>
     );
   });
