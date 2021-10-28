@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import accessHabits from "./services/toBackend";
+import Habit from "./components/Habit";
 
 function App() {
   const [habits, setHabits] = useState([]);
@@ -49,14 +50,16 @@ function App() {
     }
   };
 
-  const displayHabits = habits.map((habit) => {
-    return (
-      <li key={habit.id}>
-        {habit.name} - {habit.description}
-        <button onClick={() => handleDeleteHabit(habit.id)}>Delete</button>
-      </li>
-    );
-  });
+  // const displayHabits = habits.map((habit) => {
+  //   return (
+  //     <Habit
+  //       identification={habit.id}
+  //       name={habit.name}
+  //       desc={habit.description}
+  //       handleDeleteHabit={handleDeleteHabit}
+  //     />
+  //   );
+  // });
 
   return (
     <div className="container">
@@ -72,23 +75,43 @@ function App() {
         </ol>
       </div>
 
-      <form>
-        <h2>Add habit</h2>
-        <input
-          value={newHabit}
-          onChange={handleHabitChange}
-          placeholder="Add Habit"
-        />
-        <input
-          value={newDescription}
-          onChange={handleDescriptionChange}
-          placeholder="Please Elaborate"
-        />
-        <button onClick={addHabit}>Expose Habit</button>
-      </form>
+      <div className="add-habit-container">
+        <form className="form-contents">
+          <h2>What Habit are we looking at?</h2>
+          <div className="add-habit">
+            <h4>Add Habit</h4>
+            <input
+              value={newHabit}
+              onChange={handleHabitChange}
+              placeholder="Habit goes here"
+              className="habit-name"
+            />
+            <h4>Add Description</h4>
+            <input
+              value={newDescription}
+              onChange={handleDescriptionChange}
+              placeholder="Please Elaborate! :)"
+              className="habit-desc"
+            />
+          </div>
+
+          <button onClick={addHabit}>Expose Habit</button>
+        </form>
+      </div>
 
       <h2>Habits</h2>
-      <ul>{displayHabits}</ul>
+      <ul>
+        {habits.map((habit) => {
+          return (
+            <Habit
+              identification={habit.id}
+              name={habit.name}
+              desc={habit.description}
+              handleDeleteHabit={handleDeleteHabit}
+            />
+          );
+        })}
+      </ul>
 
       <div>
         <h2>Inspiring Quotes</h2>
