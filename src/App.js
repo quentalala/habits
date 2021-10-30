@@ -9,9 +9,7 @@ function App() {
   const [newDescription, setNewDescription] = useState("");
 
   useEffect(() => {
-    // console.log("effect");
     accessHabits.getAll().then((initialHabits) => {
-      // console.log("promise fulfilled");
       setHabits(initialHabits);
     });
   }, []);
@@ -49,17 +47,6 @@ function App() {
       setHabits(habits.filter((habit) => habit.id !== id));
     }
   };
-
-  // const displayHabits = habits.map((habit) => {
-  //   return (
-  //     <Habit
-  //       identification={habit.id}
-  //       name={habit.name}
-  //       desc={habit.description}
-  //       handleDeleteHabit={handleDeleteHabit}
-  //     />
-  //   );
-  // });
 
   return (
     <div className="container">
@@ -104,6 +91,7 @@ function App() {
         {habits.map((habit) => {
           return (
             <Habit
+              key={habit.id}
               identification={habit.id}
               name={habit.name}
               desc={habit.description}
@@ -130,5 +118,4 @@ function App() {
 
 export default App;
 
-// run JSON server with the command below
-// npx json-server --watch db.json --port 3001
+// run JSON server with: npx json-server --watch db.json --port 3001
