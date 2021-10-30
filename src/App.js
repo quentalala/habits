@@ -1,7 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import accessHabits from "./services/toBackend";
+import HabitLaws from "./components/HabitLaws";
 import Habit from "./components/Habit";
+import HabitForm from "./components/HabitForm";
+
+// import Quotes from "./components/Quotes";
 
 function App() {
   const [habits, setHabits] = useState([]);
@@ -52,66 +56,45 @@ function App() {
     <div className="container">
       <h1 className="title">Handsome Habits</h1>
 
-      <div className="habit-laws">
-        <h2>4 Laws from Atomic Habits - James Clear</h2>
-        <ol>
-          <li>Make it Obvious</li>
-          <li>Make it Attractive</li>
-          <li>Make it Easy</li>
-          <li>Make it Satisfying</li>
-        </ol>
+      <HabitLaws />
+
+      <div className="habit__form_n_list">
+        <HabitForm
+          newHabit={newHabit}
+          handleHabitChange={handleHabitChange}
+          newDescription={newDescription}
+          handleDescriptionChange={handleDescriptionChange}
+          addHabit={addHabit}
+        />
+
+        <div className="habits">
+          <h2>Habits</h2>
+          <ul>
+            {habits.map((habit) => {
+              return (
+                <Habit
+                  key={habit.id}
+                  identification={habit.id}
+                  name={habit.name}
+                  desc={habit.description}
+                  handleDeleteHabit={handleDeleteHabit}
+                />
+              );
+            })}
+          </ul>
+        </div>
       </div>
 
-      <div className="add-habit-container">
-        <form className="form-contents">
-          <h2>What Habit are we looking at?</h2>
-          <div className="add-habit">
-            <h4>Add Habit</h4>
-            <input
-              value={newHabit}
-              onChange={handleHabitChange}
-              placeholder="Habit goes here"
-              className="habit-name"
-            />
-            <h4>Add Description</h4>
-            <input
-              value={newDescription}
-              onChange={handleDescriptionChange}
-              placeholder="Please Elaborate! :)"
-              className="habit-desc"
-            />
-          </div>
-
-          <button onClick={addHabit}>Expose Habit</button>
-        </form>
+      {/* <div>
+        <h2>Good Habits</h2>
+        <ul className="good-habits"></ul>
       </div>
-
-      <h2>Habits</h2>
-      <ul>
-        {habits.map((habit) => {
-          return (
-            <Habit
-              key={habit.id}
-              identification={habit.id}
-              name={habit.name}
-              desc={habit.description}
-              handleDeleteHabit={handleDeleteHabit}
-            />
-          );
-        })}
-      </ul>
-
       <div>
-        <h2>Inspiring Quotes</h2>
-        <p>
-          "The way you live your days is the way you live your life" - Annie
-          Dillard
-        </p>
-        <p>
-          "We have two lives, and the second one begins when we realize we only
-          have one" - Confucius
-        </p>
-      </div>
+        <h2>Bad Habits</h2>
+        <ul className="bad-habits"></ul>
+      </div> */}
+
+      {/* <Quotes /> */}
     </div>
   );
 }

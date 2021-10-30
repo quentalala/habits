@@ -12,49 +12,17 @@
   margin-bottom: 2rem;
 }
 
-.add-habit-container {
+.habit__form_n_list {
   display: flex;
-  margin: auto;
-  width: 700px;
-
-  border-radius: 20px;
-  border: 1px solid black;
-}
-
-.form-contents {
-  width: 90%;
-  margin-left: 2rem;
-  /* border: 1px solid lightgrey; */
-}
-
-.habit-name {
-  height: 2rem;
-  width: 95%;
-  border-radius: 5px;
-}
-
-.habit-desc {
-  height: 4rem;
-  width: 95%;
-  border-radius: 5px;
-}
-
-.add-habit {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-.add-habit h4 {
-  padding: 0;
-  margin: 0.75rem 0;
-}
-
-.add-habit-container button {
-  justify-content: right;
-  margin-bottom: 1rem;
+  margin-right: 10rem;
 }
 
 ul {
   list-style-type: none;
+}
+
+.habits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
