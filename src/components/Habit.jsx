@@ -9,11 +9,10 @@ const Habit = ({ identification, name, desc, handleDeleteHabit }) => {
         onClick={() => handleDeleteHabit(identification)}
         className="delete-habit"
       >
-        Delete
+        X
       </button>
-      <p>
-        {name} - {desc}
-      </p>
+      <p>{name}</p>
+      <p>{desc}</p>
     </li>
   );
 };

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "./App.css";
 import accessHabits from "./services/toBackend";
 import HabitLaws from "./components/HabitLaws";
 import Habit from "./components/Habit";
 import HabitForm from "./components/HabitForm";
+import Footer from "./components/footer/Footer";
 
 // import Quotes from "./components/Quotes";
 
@@ -53,39 +55,50 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h1 className="title">Handsome Habits</h1>
+    <>
+      <div className="App">
+        <div className="container">
+          <h1 className="title">Handsome Habits</h1>
 
-      <HabitLaws />
+          <HabitLaws />
 
-      <div className="habit__form_n_list">
-        <HabitForm
-          newHabit={newHabit}
-          handleHabitChange={handleHabitChange}
-          newDescription={newDescription}
-          handleDescriptionChange={handleDescriptionChange}
-          addHabit={addHabit}
-        />
+          <div className="habit__form_n_list">
+            <HabitForm
+              newHabit={newHabit}
+              handleHabitChange={handleHabitChange}
+              newDescription={newDescription}
+              handleDescriptionChange={handleDescriptionChange}
+              addHabit={addHabit}
+              className="habit-form"
+            />
 
-        <div className="habits">
-          <h2>Habits</h2>
-          <ul>
-            {habits.map((habit) => {
-              return (
-                <Habit
-                  key={habit.id}
-                  identification={habit.id}
-                  name={habit.name}
-                  desc={habit.description}
-                  handleDeleteHabit={handleDeleteHabit}
-                />
-              );
-            })}
-          </ul>
-        </div>
-      </div>
+            <div className="display-habits">
+              <h1>Habits</h1>
+              <div className="habits">
+                <DragDropContext>
+                  <Droppable droppableId="habits">
+                    {(provided) => (
+                      <ul {...provided.droppableProps} ref={provided.innerRef}>
+                        {habits.map((habit) => {
+                          return (
+                            <Habit
+                              key={habit.id}
+                              identification={habit.id}
+                              name={habit.name}
+                              desc={habit.description}
+                              handleDeleteHabit={handleDeleteHabit}
+                            />
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </Droppable>
+                </DragDropContext>
+              </div>
+            </div>
+          </div>
 
-      {/* <div>
+          {/* <div>
         <h2>Good Habits</h2>
         <ul className="good-habits"></ul>
       </div>
@@ -94,8 +107,11 @@ function App() {
         <ul className="bad-habits"></ul>
       </div> */}
 
-      {/* <Quotes /> */}
-    </div>
+          {/* <Quotes /> */}
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 
