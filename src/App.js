@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./App.css";
 import accessHabits from "./services/toBackend";
 import HabitLaws from "./components/HabitLaws";
-import Habit from "./components/Habit";
+// import Habit from "./components/Habit";
 import HabitForm from "./components/HabitForm";
 import Footer from "./components/footer/Footer";
 
@@ -79,17 +79,44 @@ function App() {
                   <Droppable droppableId="habits">
                     {(provided) => (
                       <ul {...provided.droppableProps} ref={provided.innerRef}>
-                        {habits.map((habit) => {
+                        {habits.map((habit, i) => {
                           return (
-                            <Habit
+                            <Draggable
                               key={habit.id}
-                              identification={habit.id}
-                              name={habit.name}
-                              desc={habit.description}
-                              handleDeleteHabit={handleDeleteHabit}
-                            />
+                              draggableId={String(habit.id)}
+                              index={i}
+                            >
+                              {(provided) => (
+                                <li
+                                  className="habit"
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                >
+                                  <button
+                                    onClick={() => handleDeleteHabit(habit.id)}
+                                    className="delete-habit"
+                                  >
+                                    X
+                                  </button>
+                                  <p>{habit.name}</p>
+                                  <p>{habit.description}</p>
+                                </li>
+
+                                // <Habit
+                                //   ref={provided.innerRef}
+                                //   {...provided.draggableProps}
+                                //   {...provided.dragHandleProps}
+                                //   identification={habit.id}
+                                //   name={habit.name}
+                                //   desc={habit.description}
+                                //   handleDeleteHabit={handleDeleteHabit}
+                                // />
+                              )}
+                            </Draggable>
                           );
                         })}
+                        {provided.placeholder}
                       </ul>
                     )}
                   </Droppable>
