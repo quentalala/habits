@@ -54,6 +54,15 @@ function App() {
     }
   };
 
+  const handleOnDragEnd = (result) => {
+    console.log(result);
+    const habitsList = Array.from(habits);
+    const [reorderedHabit] = habitsList.splice(result.source.index, 1);
+    habitsList.splice(result.destination.index, 0, reorderedHabit);
+
+    setHabits(habitsList);
+  };
+
   return (
     <>
       <div className="App">
@@ -75,7 +84,7 @@ function App() {
             <div className="display-habits">
               <h1>Habits</h1>
               <div className="habits">
-                <DragDropContext>
+                <DragDropContext onDragEnd={handleOnDragEnd}>
                   <Droppable droppableId="habits">
                     {(provided) => (
                       <ul {...provided.droppableProps} ref={provided.innerRef}>
