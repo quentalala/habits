@@ -33,6 +33,10 @@ ul {
   align-items: center;
 }
 
+.display-habits h1 {
+  margin-top: 2rem;
+}
+
 .habits {
   display: flex;
   flex-direction: column;
@@ -67,6 +71,25 @@ ul {
 
 .delete-habit:hover {
   background-color: grey;
+}
+
+/* Good & Bad Habits Lists */
+
+.organize-habits {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.org-habits {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.org-habits ul li {
+  margin: 1rem;
 }
 
 /* Sticky, but not a fixed footer */

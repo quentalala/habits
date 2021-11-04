@@ -17,10 +17,15 @@ const deleteEntry = (id) => {
   return request.then((response) => response.data);
 };
 
-const update = (id, newObject) => {
-  const request = axios.put(`${baseUrl}/${id}`, newObject);
+const update = (habits) => {
+  const request = axios.put(`${baseUrl}`, habits);
   return request.then((response) => response.data);
 };
+
+// const update = (id, newObject) => {
+//   const request = axios.put(`${baseUrl}/${id}`, newObject);
+//   return request.then((response) => response.data);
+// };
 
 const accessHabits = { getAll, create, deleteEntry, update };
 

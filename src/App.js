@@ -7,10 +7,61 @@ import HabitLaws from "./components/HabitLaws";
 import HabitForm from "./components/HabitForm";
 import Footer from "./components/footer/Footer";
 
-// import Quotes from "./components/Quotes";
-
 function App() {
   const [habits, setHabits] = useState([]);
+  // const [habits, setHabits] = useState([[
+  //     {
+  //       name: "Washing Dishes",
+  //       description: "Right after you're done eating",
+  //       id: 1
+  //     },
+  //     {
+  //       name: "Morning Stretch",
+  //       description: "When you wake up",
+  //       id: 2
+  //     },
+  //     {
+  //       name: "Avoid browsing on phone",
+  //       description: "After you close the morning alarm, or when being productive",
+  //       id: 3
+  //     },
+  //     {
+  //       name: "Warm up!",
+  //       description: "Before exercising, do some cardio and some dynamic stretching!",
+  //       id: 4
+  //     },
+  //     {
+  //       name: "Test1",
+  //       description: "Testing",
+  //       id: 5
+  //     },
+  //     {
+  //       name: "Test2",
+  //       description: "Testing",
+  //       id: 6
+  //     },
+  //     {
+  //       name: "Test3",
+  //       description: "Testing",
+  //       id: 7
+  //     },
+  //     {
+  //       name: "Test4",
+  //       description: "Testing",
+  //       id: 8
+  //     },
+  //     {
+  //       name: "Test5",
+  //       description: "Testing",
+  //       id: 9
+  //     },
+  //     {
+  //       name: "Test6",
+  //       description: "TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING",
+  //       id: 10
+  //     }
+  //   ]
+  // ]);
   const [newHabit, setNewHabit] = useState("");
   const [newDescription, setNewDescription] = useState("");
 
@@ -55,12 +106,13 @@ function App() {
   };
 
   const handleOnDragEnd = (result) => {
-    console.log(result);
+    if (!result.destination) return;
     const habitsList = Array.from(habits);
     const [reorderedHabit] = habitsList.splice(result.source.index, 1);
     habitsList.splice(result.destination.index, 0, reorderedHabit);
 
     setHabits(habitsList);
+    // accessHabits.update(habits);
   };
 
   return (
@@ -134,16 +186,28 @@ function App() {
             </div>
           </div>
 
-          {/* <div>
-        <h2>Good Habits</h2>
-        <ul className="good-habits"></ul>
-      </div>
-      <div>
-        <h2>Bad Habits</h2>
-        <ul className="bad-habits"></ul>
-      </div> */}
-
-          {/* <Quotes /> */}
+          <div className="organize-habits">
+            <div className="org-habits">
+              <h2>Good Habits</h2>
+              <ul className="good-habits">
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+              </ul>
+            </div>
+            <div className="org-habits">
+              <h2>Bad Habits</h2>
+              <ul className="bad-habits">
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+                <li>FILLER FOR DRAGGABLE HABIT</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />
@@ -154,3 +218,6 @@ function App() {
 export default App;
 
 // run JSON server with: npx json-server --watch db.json --port 3001
+
+// Planning to remove JSON-server and simply store data in this component
+// Figure out how to store data into local storage!
