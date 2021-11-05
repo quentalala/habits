@@ -1,89 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "./App.css";
-import accessHabits from "./services/toBackend";
+// import accessHabits from "./services/toBackend";
 import HabitLaws from "./components/HabitLaws";
 // import Habit from "./components/Habit";
 import HabitForm from "./components/HabitForm";
 import Footer from "./components/footer/Footer";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
-  const [habits, setHabits] = useState([]);
-  // const [habits, setHabits] = useState([[
-  //     {
-  //       name: "Washing Dishes",
-  //       description: "Right after you're done eating",
-  //       id: 1
-  //     },
-  //     {
-  //       name: "Morning Stretch",
-  //       description: "When you wake up",
-  //       id: 2
-  //     },
-  //     {
-  //       name: "Avoid browsing on phone",
-  //       description: "After you close the morning alarm, or when being productive",
-  //       id: 3
-  //     },
-  //     {
-  //       name: "Warm up!",
-  //       description: "Before exercising, do some cardio and some dynamic stretching!",
-  //       id: 4
-  //     },
-  //     {
-  //       name: "Test1",
-  //       description: "Testing",
-  //       id: 5
-  //     },
-  //     {
-  //       name: "Test2",
-  //       description: "Testing",
-  //       id: 6
-  //     },
-  //     {
-  //       name: "Test3",
-  //       description: "Testing",
-  //       id: 7
-  //     },
-  //     {
-  //       name: "Test4",
-  //       description: "Testing",
-  //       id: 8
-  //     },
-  //     {
-  //       name: "Test5",
-  //       description: "Testing",
-  //       id: 9
-  //     },
-  //     {
-  //       name: "Test6",
-  //       description: "TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING",
-  //       id: 10
-  //     }
-  //   ]
-  // ]);
+  const [habits, setHabits] = useState([
+    {
+      name: "Test1",
+      description: "Testing",
+      id: uuidv4(),
+    },
+    {
+      name: "Test2",
+      description: "Testing",
+      id: uuidv4(),
+    },
+    {
+      name: "Test3",
+      description: "Testing",
+      id: uuidv4(),
+    },
+    {
+      name: "Test4",
+      description: "Testing",
+      id: uuidv4(),
+    },
+    {
+      name: "Test5",
+      description: "Testing",
+      id: uuidv4(),
+    },
+    {
+      name: "Test6",
+      description:
+        "TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING",
+      id: uuidv4(),
+    },
+  ]);
   const [newHabit, setNewHabit] = useState("");
   const [newDescription, setNewDescription] = useState("");
-
-  useEffect(() => {
-    accessHabits.getAll().then((initialHabits) => {
-      setHabits(initialHabits);
-    });
-  }, []);
+  // const [goodHabits, setGoodHabits] = useState([]);
+  // const [badHabits, setBadHabits] = useState([]);
 
   const addHabit = (e) => {
     e.preventDefault();
     const habitObject = {
       name: newHabit,
       description: newDescription,
+      id: uuidv4(),
     };
 
-    accessHabits.create(habitObject).then((returnedHabit) => {
-      setHabits(habits.concat(returnedHabit));
-      setNewHabit("");
-      setNewDescription("");
-    });
-    console.log(habits);
+    setHabits([...habits].concat(habitObject));
+    setNewHabit("");
+    setNewDescription("");
   };
 
   const handleHabitChange = (e) => {
@@ -100,7 +74,6 @@ function App() {
         `Delete ${habits.filter((habit) => habit.id === id)[0].name}?`
       )
     ) {
-      accessHabits.deleteEntry(id);
       setHabits(habits.filter((habit) => habit.id !== id));
     }
   };
@@ -112,7 +85,6 @@ function App() {
     habitsList.splice(result.destination.index, 0, reorderedHabit);
 
     setHabits(habitsList);
-    // accessHabits.update(habits);
   };
 
   return (
@@ -153,6 +125,7 @@ function App() {
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
+                                  key={habit.id}
                                 >
                                   <button
                                     onClick={() => handleDeleteHabit(habit.id)}
@@ -163,16 +136,6 @@ function App() {
                                   <p>{habit.name}</p>
                                   <p>{habit.description}</p>
                                 </li>
-
-                                // <Habit
-                                //   ref={provided.innerRef}
-                                //   {...provided.draggableProps}
-                                //   {...provided.dragHandleProps}
-                                //   identification={habit.id}
-                                //   name={habit.name}
-                                //   desc={habit.description}
-                                //   handleDeleteHabit={handleDeleteHabit}
-                                // />
                               )}
                             </Draggable>
                           );
@@ -186,28 +149,24 @@ function App() {
             </div>
           </div>
 
-          <div className="organize-habits">
+          {/* <div className="organize-habits">
             <div className="org-habits">
               <h2>Good Habits</h2>
               <ul className="good-habits">
-                <li>FILLER FOR DRAGGABLE HABIT</li>
-                <li>FILLER FOR DRAGGABLE HABIT</li>
-                <li>FILLER FOR DRAGGABLE HABIT</li>
-                <li>FILLER FOR DRAGGABLE HABIT</li>
-                <li>FILLER FOR DRAGGABLE HABIT</li>
+                {goodHabits.map((goodHabit) => {
+                  return <li key={goodHabit.id}>{goodHabit.name}</li>;
+                })}
               </ul>
             </div>
             <div className="org-habits">
               <h2>Bad Habits</h2>
               <ul className="bad-habits">
-                <li>FILLER FOR DRAGGABLE HABIT</li>
-                <li>FILLER FOR DRAGGABLE HABIT</li>
-                <li>FILLER FOR DRAGGABLE HABIT</li>
-                <li>FILLER FOR DRAGGABLE HABIT</li>
-                <li>FILLER FOR DRAGGABLE HABIT</li>
+                {badHabits.map((badHabit) => {
+                  return <li key={badHabit.id}>{badHabit.name}</li>;
+                })}
               </ul>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />

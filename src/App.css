@@ -54,7 +54,8 @@ ul {
   padding: 1rem;
   margin: 1rem;
   /* Width is the same size as form-contents */
-  width: 630px;
+  width: 400px;
+  /* width: 630px; */
   white-space: normal;
 
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
